@@ -11,28 +11,30 @@ const medicController = new MedicController(medicUseCase);
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const result = medicController.getAll(true);
-  /*   res.writeHead(200, {"content-type": "application/json"})
-  res.end(JSON.stringify(result)) */
+  const result = await medicController.getAll(true);
   res.json(result);
 });
 
 router.get("/:id", async (req, res) => {
-  const result = await medicController.getOne(1);
+  const id = req.params.id
+  const result = await medicController.getOne(id);
   res.json(result);
 });
 
 router.post("/", async (req, res) => {
+
+  const  {name, surname, lastname, cmp, dni, email, photo, locations} = req.body
+
   const medic: Medic = {
-    name: "Sergio",
-    surname: "Iván",
-    lastname: "Hidalgo",
-    cmp: "12345",
-    dni: "12345678",
-    email: "sergiohidalgocaceres@gmail.com",
-    photo: "sergio.jpg",
+    name,
+    surname,
+    lastname,
+    cmp,
+    dni,
+    email,
+    photo,
     isActive: true,
-    locations: ["LIMA", "TRUJILLO"],
+    locations,
   };
   const result = await medicController.insert(medic);
   res.json(result);

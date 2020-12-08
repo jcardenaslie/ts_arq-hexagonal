@@ -1,4 +1,4 @@
-import { MedicUseCase } from "../application/medic.usecase";
+import { MedicUseCase } from './../application/medic.usecase';
 import { Medic } from "../domain/entities/medic.entity";
 export class MedicController {
   constructor(private readonly medicUseCase: MedicUseCase) {}
