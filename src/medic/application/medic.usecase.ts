@@ -9,7 +9,7 @@ export class MedicUseCase {
   }
 
   async getAll(isActive: boolean) {
-    return await this.repository.getAll(isActive);
+		return await this.repository.getAll({ isActive: true });
   }
 
   async getOne(id: string | number) {

@@ -1,7 +1,6 @@
 import Joi from "joi"
-import joi from "joi"
 
-const schema = {
+export const schema = {
   POST_INSERT: {
     body: Joi.object({
       name: Joi.string().required(),

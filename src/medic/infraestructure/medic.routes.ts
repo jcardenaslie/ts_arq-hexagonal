@@ -3,6 +3,7 @@ import { MedicOperation } from "./medic.operation";
 import { MedicUseCase } from "../application/medic.usecase";
 import { MedicController } from "./medic.controller";
 import { Medic } from "../domain/entities/medic.entity";
+import SchemaValidator from "../../validators/schema.validator";
 
 const medicOperation = new MedicOperation();
 const medicUseCase = new MedicUseCase(medicOperation);
@@ -21,7 +22,7 @@ router.get("/:id", async (req, res) => {
   res.json(result);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", SchemaValidator.validate, async (req, res) => {
 
   const  {name, surname, lastname, cmp, dni, email, photo, locations} = req.body
 
