@@ -1,9 +1,11 @@
+import { schema as MedicSchema } from './medic.schema';
 import express from "express";
 import { MedicOperation } from "./medic.operation";
 import { MedicUseCase } from "../application/medic.usecase";
 import { MedicController } from "./medic.controller";
 import { Medic } from "../domain/entities/medic.entity";
 import SchemaValidator from "../../validators/schema.validator";
+
 
 const medicOperation = new MedicOperation();
 const medicUseCase = new MedicUseCase(medicOperation);
@@ -22,23 +24,23 @@ router.get("/:id", async (req, res) => {
   res.json(result);
 });
 
-router.post("/", SchemaValidator.validate, async (req, res) => {
-
-  const  {name, surname, lastname, cmp, dni, email, photo, locations} = req.body
-
-  const medic: Medic = {
-    name,
-    surname,
-    lastname,
-    cmp,
-    dni,
-    email,
-    photo,
-    isActive: true,
-    locations,
-  };
-  const result = await medicController.insert(medic);
-  res.json(result);
+router.post("/", 
+	SchemaValidator.validate(MedicSchema.POST_INSERT), 
+	async (req, res) => {
+		const  {name, surname, lastname, cmp, dni, email, photo, locations} = req.body
+		const medic: Medic = {
+			name,
+			surname,
+			lastname,
+			cmp,
+			dni,
+			email,
+			photo,
+			isActive: true,
+			locations,
+		};
+		const result = await medicController.insert(medic);
+		res.json(result);
 });
 
 router.put("/:id", async (req, res) => {
