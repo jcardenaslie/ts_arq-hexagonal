@@ -10,5 +10,12 @@ Content-Type: application/json
   "dni": "181448369",
   "photo": "photo.png",
   "email": "jcardenas.lie@gmail.com",
-  "locations": "Chile"
+  "locations": ["Chile"]
 }
+
+### Medics Get All
+GET http://localhost:3000/medics/
+Content-Type: application/json
+
+###
+GET http://localhost:3000/medics/page/0/

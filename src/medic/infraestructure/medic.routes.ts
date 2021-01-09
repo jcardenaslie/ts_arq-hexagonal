@@ -72,13 +72,14 @@ SchemaValidator.validate(MedicSchema.DELETE),
   }
 );
 
-router.get("/page/:page", 
-  SchemaValidator.validate(MedicSchema.PAGINATION), 
-  async (req, res)=> {
-    const page = +req.params.page
-    const results = await medicController.getPage(page);
-    res.json({status: 200, results})
-  }
-)
+router.get(
+	'/page/:page',
+	SchemaValidator.validate(MedicSchema.PAGINATION),
+	async (req, res) => {
+		const page = +req.params.page;
+		const results = await medicController.getByPage(page);
+		res.json({ status: 200, results });
+	}
+);
 
 export { router };

@@ -19,7 +19,7 @@ export class MedicUseCase {
     return await this.repository.getById(id);
   }
 
-  async getPage(page: number) {
+  async getByPage(page: number) {
     const filter = {isActive: true}
     return await this.repository.getByPage(filter, page, env.PAGINATION.PAGE_SIZE);
   }

@@ -15,8 +15,8 @@ export class MedicController {
     return this.medicUseCase.getOne(id);
   }
 
-  async getPage(page: number) {
-    return this.medicUseCase.getPage(page);
+  async getByPage(page: number) {
+    return this.medicUseCase.getByPage(page);
   }
 
   async update(id: string | number, medic: Medic) {
