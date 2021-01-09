@@ -1,6 +1,9 @@
+import yenv from "yenv";
 import { Medic } from "../domain/entities/medic.entity";
 import { MedicRepository } from "../domain/repositories/medic.repository";
 
+
+const env = yenv()
 export class MedicUseCase {
   constructor(private readonly repository:MedicRepository) {}
 
@@ -14,6 +17,11 @@ export class MedicUseCase {
 
   async getOne(id: string | number) {
     return await this.repository.getById(id);
+  }
+
+  async getPage(page: number) {
+    const filter = {isActive: true}
+    return await this.repository.getByPage(filter, page, env.PAGINATION.PAGE_SIZE);
   }
 
   async update(id: string | number, medic: Medic) {
