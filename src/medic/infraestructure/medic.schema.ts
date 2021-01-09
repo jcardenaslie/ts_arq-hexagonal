@@ -31,31 +31,11 @@ export const schema = {
   GET_ONE: {
     params: Joi.object({
       id: Joi.string().required()
-    }),
-    body: Joi.object({
-      name: Joi.string(),
-      surname: Joi.string(),
-      lastname: Joi.string(),
-      cmp: Joi.string(),
-      dni: Joi.string(),
-      photo: Joi.string(),
-      email: Joi.string(),
-      locations: Joi.array(),
     })
   },
   DELETE: {
     params: Joi.object({
       id: Joi.string().required()
-    }),
-    body: Joi.object({
-      name: Joi.string(),
-      surname: Joi.string(),
-      lastname: Joi.string(),
-      cmp: Joi.string(),
-      dni: Joi.string(),
-      photo: Joi.string(),
-      email: Joi.string(),
-      locations: Joi.array(),
     })
   },
   PAGINATION: {
