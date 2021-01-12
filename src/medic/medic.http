@@ -6,7 +6,6 @@ Content-Type: application/json
   "name": "Joaquin",
   "surname": "Antonio",
   "lastname": "Cardenas",
-  "cmp" : "1414",
   "dni": "181448369",
   "photo": "photo.png",
   "email": "jcardenas.lie@gmail.com",
@@ -14,6 +13,10 @@ Content-Type: application/json
 }
 
 ### Get All
+GET http://localhost:3000/medics/
+Content-Type: application/json
+
+### Get One
 GET http://localhost:3000/medics/
 Content-Type: application/json
 

@@ -1,0 +1,24 @@
+### Create
+POST http://localhost:3000/users/
+Content-Type: application/json
+
+{
+  "name": "Joaquin",
+  "email": "jcardenas.lie@gmail.com",
+  "password": "1234"
+}
+
+### Get All
+GET http://localhost:3000/users/
+Content-Type: application/json
+
+### Get One
+GET http://localhost:3000/users/5ffa40b87f995f6408b9a628
+Content-Type: application/json
+
+### Delete One
+DELETE http://localhost:3000/users/5ffa40b87f995f6408b9a628
+Content-Type: application/json
+
+### Get Pagination
+GET http://localhost:3000/users/page/0
