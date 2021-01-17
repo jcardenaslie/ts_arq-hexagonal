@@ -23,13 +23,13 @@ export default class SchemaValidator{
               listValidations.push(schemaValidation[container].validate(req.body))
               break
             case "headers":
-              listValidations.push(schemaValidation[container].validate(req.body))
+              listValidations.push(schemaValidation[container].validate(req.headers))
               break
             case "params":
-              listValidations.push(schemaValidation[container].validate(req.body))
+              listValidations.push(schemaValidation[container].validate(req.params))
               break
             case "query":
-              listValidations.push(schemaValidation[container].validate(req.body))
+              listValidations.push(schemaValidation[container].validate(req.query))
               break
           }
         }

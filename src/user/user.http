@@ -4,13 +4,26 @@ Content-Type: application/json
 
 {
   "name": "Joaquin",
-  "email": "jcardenas.lie@gmail.com",
-  "password": "1234"
+  "email": "joaquin.lie@gmail.com",
+  "password": "1234",
+  "roles": [ "5ffd67703ef5a2a43a4fad2b"]
+}
+
+### Update
+PUT http://localhost:3000/users/5ffd686f467486a526398e9e
+Content-Type: application/json
+
+{
+  "name": "Tomas",
+  "email": "tomas.lie@gmail.com",
+  "password": "1234",
+  "roles": ["5ffd6384223b34a3bf0f08b0", "5ffd67703ef5a2a43a4fad2b"]
 }
 
 ### Get All
 GET http://localhost:3000/users/
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA2NzI4MTMsImV4cCI6MTYxMDY3Mjg5MywibmFtZSI6IlRvbWFzIiwicm9sZXMiOlsiNWZmZDYzODQyMjNiMzRhM2JmMGYwOGIwIiwiNWZmZDY3NzAzZWY1YTJhNDNhNGZhZDJiIl19.m6U1WMpyY_sYpfQmn6YdbCkao1_68qEp_Sa5yNQc_MU
 
 ### Get One
 GET http://localhost:3000/users/5ffa40b87f995f6408b9a628

@@ -1,0 +1,30 @@
+### Create
+POST http://localhost:3000/roles/
+Content-Type: application/json
+
+{
+  "name": "CALL_CENTER"
+}
+
+### Update
+POST http://localhost:3000/roles/5ffd6384223b34a3bf0f08b0
+Content-Type: application/json
+
+{
+  "name": "ADMINS"
+}
+
+### Get All
+GET http://localhost:3000/roles/
+Content-Type: application/json
+
+### Get One
+GET http://localhost:3000/roles/5ffd64113ef5a2a43a4fad2a
+Content-Type: application/json
+
+### Delete One
+DELETE http://localhost:3000/roles/5ffa40b87f995f6408b9a628
+Content-Type: application/json
+
+### Get Pagination
+GET http://localhost:3000/roles/page/0
