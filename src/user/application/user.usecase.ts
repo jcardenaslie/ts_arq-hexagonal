@@ -2,6 +2,7 @@ import yenv from "yenv";
 import { User } from "../domain/entities/user.entity";
 import { UserRepository } from "../domain/repositories/user.repository";
 import bcrypt from "bcryptjs"
+import { Tokens } from "../../auth/application/auth.services";
 
 const env = yenv()
 export class UserUseCase {
@@ -10,6 +11,7 @@ export class UserUseCase {
   async insert(user: User) {
     const hashedPassword = await bcrypt.hash(user.password, 10)
     user.password = hashedPassword
+    user.refreshToken = Tokens.generateRefreshToken()
     return await this.repository.insert(user);
   }
 

@@ -23,7 +23,13 @@ const schema:Schema = new Schema ({
   refreshToken: {
     type: String,
     default: ""
-  }
+  },
+  roles: [
+    { 
+      type: Schema.Types.ObjectId,
+      Ref: "Role"
+    }
+  ]
 })
 
-export default mongoose.model("Users", schema )
+export default mongoose.model("User", schema )

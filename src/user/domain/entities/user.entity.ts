@@ -1,7 +1,8 @@
 export interface User {
-  name: string;
-  email: string;
-  password: string;
+  name?: string;
+  email?: string;
+  password?: string;
   isActive?: boolean;
-  refreshToken?: string
+  refreshToken?: string;
+  roles?:Array<any>
 }

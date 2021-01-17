@@ -6,7 +6,7 @@ import { UserController } from "./user.controller";
 import { User } from "../domain/entities/user.entity";
 import SchemaValidator from "../../validators/schema.validator";
 import { Errors } from "../../helpers/errors.helper"
-
+import { AuthenticationMiddleware } from '../../middlewares/authentication.mw';
 
 const userOperation = new UserOperation();
 const userUseCase = new UserUseCase(userOperation);
@@ -14,12 +14,17 @@ const userController = new UserController(userUseCase);
 
 const router = express.Router();
 
-router.get("/", Errors.asyncError(async (req, res) => {
-  const result = await userController.getAll(true);
-  res.json(result);
+// router.use(AuthenticationMiddleware.canActivate)
+
+router.get("/",
+  AuthenticationMiddleware.canActivate, 
+  Errors.asyncError(async (req, res) => {
+    const result = await userController.getAll(true);
+    res.json(result);
 }));
 
 router.get("/:id", 
+  AuthenticationMiddleware.canActivate,
   SchemaValidator.validate(UserSchema.GET_ONE), 
   Errors.asyncError(async (req, res) => {
     const id = req.params.id
@@ -31,32 +36,31 @@ router.get("/:id",
 router.post("/", 
 	SchemaValidator.validate(UserSchema.POST_INSERT), 
   Errors.asyncError(async (req, res) => {
-		const  {name, email, password} = req.body
+		const  {name, email, password, roles} = req.body
 		const user: User = {
 			name,
 			email,
-			password
+      password,
+      roles,
+      isActive: true
 		};
 		const result = await userController.insert(user);
 		res.json(result);
   })
 );
 
-router.put("/:id", 
+router.put("/:id",
+  AuthenticationMiddleware.canActivate,
   SchemaValidator.validate(UserSchema.UPDATE),
   Errors.asyncError(async (req, res) => {
-    const user: User = {
-      name: "Sergio",
-      email: "sergiohidalgocaceres@gmail.com",
-      password: "1234",
-      isActive: true,
-    };
+    const user: User = req.body
     const result = await userController.update(1, user);
     res.json(result);
   })
 );
 
-router.delete("/:id", 
+router.delete("/:id",
+  AuthenticationMiddleware.canActivate,
   SchemaValidator.validate(UserSchema.DELETE), 
   Errors.asyncError(async (req, res) => {
     const result = await userController.delete(1);
@@ -65,7 +69,8 @@ router.delete("/:id",
 );
 
 router.get(
-	'/page/:page',
+  '/page/:page',
+  AuthenticationMiddleware.canActivate,
 	SchemaValidator.validate(UserSchema.PAGINATION),
 	Errors.asyncError(async (req, res) => {
 		const page = +req.params.page;
