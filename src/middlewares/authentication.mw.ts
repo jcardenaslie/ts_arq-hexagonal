@@ -9,9 +9,6 @@ export class AuthenticationMiddleware {
     if(authotirization){
       const parseAuthorization = authotirization.split(' ')
 
-      console.log('====================================');
-      console.log(headers.authorization);
-      console.log('====================================');
       if (parseAuthorization.lenght < 2) {
         res.status(401).send('User nor logged')
       } else {
@@ -19,6 +16,9 @@ export class AuthenticationMiddleware {
         Tokens.validateAccessToken(accessToken)
           .then( (payload) => {
             res.locals.payload = payload
+            console.log('====================================');
+            console.log(payload);
+            console.log('====================================');
             next()
           })
           .catch( (error:any) => {

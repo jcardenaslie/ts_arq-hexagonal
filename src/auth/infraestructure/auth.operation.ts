@@ -5,10 +5,10 @@ import { AuthRepository } from "../domain/repositories/auth.repository";
 
 export class AuthOperation implements AuthRepository{
   async login(user: User): Promise<User>{
-    const response: User = <User> (await UserModel.findOne({email: user.email})).populate("roles")
-    console.log('====================================');
-    console.log(response);
-    console.log('====================================');
+    const response: UserType = await UserModel
+      .findOne({email: user.email})
+      .populate("roles")
+    
     return response
   }
 }

@@ -7,6 +7,8 @@ import { User } from "../domain/entities/user.entity";
 import SchemaValidator from "../../validators/schema.validator";
 import { Errors } from "../../helpers/errors.helper"
 import { AuthenticationMiddleware } from '../../middlewares/authentication.mw';
+import { AuthorizationMiddleWare } from '../../middlewares/authorization.mw';
+import { Upload } from '../../middlewares/upload.mw';
 
 const userOperation = new UserOperation();
 const userUseCase = new UserUseCase(userOperation);
@@ -17,7 +19,8 @@ const router = express.Router();
 // router.use(AuthenticationMiddleware.canActivate)
 
 router.get("/",
-  AuthenticationMiddleware.canActivate, 
+  AuthenticationMiddleware.canActivate,
+  AuthorizationMiddleWare.canActivete("ADMINS"), 
   Errors.asyncError(async (req, res) => {
     const result = await userController.getAll(true);
     res.json(result);
@@ -25,6 +28,7 @@ router.get("/",
 
 router.get("/:id", 
   AuthenticationMiddleware.canActivate,
+  AuthorizationMiddleWare.canActivete("ADMINS"),
   SchemaValidator.validate(UserSchema.GET_ONE), 
   Errors.asyncError(async (req, res) => {
     const id = req.params.id
@@ -34,7 +38,10 @@ router.get("/:id",
 );
 
 router.post("/", 
-	SchemaValidator.validate(UserSchema.POST_INSERT), 
+  AuthenticationMiddleware.canActivate,
+  AuthorizationMiddleWare.canActivete("ADMINS"),
+  Upload.s3("profile-photo"),
+  SchemaValidator.validate(UserSchema.POST_INSERT), 
   Errors.asyncError(async (req, res) => {
 		const  {name, email, password, roles} = req.body
 		const user: User = {
@@ -52,6 +59,7 @@ router.post("/",
 router.put("/:id",
   AuthenticationMiddleware.canActivate,
   SchemaValidator.validate(UserSchema.UPDATE),
+  AuthorizationMiddleWare.canActivete("ADMINS"),
   Errors.asyncError(async (req, res) => {
     const user: User = req.body
     const result = await userController.update(1, user);
@@ -62,6 +70,7 @@ router.put("/:id",
 router.delete("/:id",
   AuthenticationMiddleware.canActivate,
   SchemaValidator.validate(UserSchema.DELETE), 
+  AuthorizationMiddleWare.canActivete("ADMINS"),
   Errors.asyncError(async (req, res) => {
     const result = await userController.delete(1);
     res.json(result);
@@ -71,7 +80,8 @@ router.delete("/:id",
 router.get(
   '/page/:page',
   AuthenticationMiddleware.canActivate,
-	SchemaValidator.validate(UserSchema.PAGINATION),
+  SchemaValidator.validate(UserSchema.PAGINATION),
+  AuthorizationMiddleWare.canActivete("ADMINS"),
 	Errors.asyncError(async (req, res) => {
 		const page = +req.params.page;
 		const results = await userController.getByPage(page);
