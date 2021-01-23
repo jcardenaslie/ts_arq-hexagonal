@@ -15,14 +15,14 @@ export class Errors {
 			ftn(req, res, next).catch(err => {
 				let error: IError;
 
+				error.status = err.status || 500;
+
 				if (err.code) {
 					error = new Error('Database error');
-					error.status = 500;
 					error.message = err.name;
 					error.stack = err;
 				} else {
 					error = new Error('Async Error');
-					error.status = err.status;
 					error.message = err.message;
 					error.stack = err.stack;
 				}
@@ -31,11 +31,7 @@ export class Errors {
 			});
 	}
 
-	static pathNotFoundError(
-		req: Request, 
-		res: Response, 
-		next: NextFunction
-	) {
+	static pathNotFoundError(req: Request, res: Response, next: NextFunction) {
 		// res.status(404).json({ status: 404, message: "Path not found" });
 		const err: IError = new Error('Path not found');
 		err.status = 404;
